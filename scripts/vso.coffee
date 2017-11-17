@@ -29,6 +29,7 @@ module.exports = (robot) ->
 	  workItems = [titleWorkItem]
 	  data = JSON.stringify(workItems)
 	  robot.http(url)
+		  .header('Content-Type', 'application/json')
 	      .header('Authorization', auth)
 	      .post(data) (err, httpRes, body) -> 
 		      if err
