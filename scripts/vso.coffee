@@ -7,7 +7,8 @@ module.exports = (robot) ->
       res.send url
       robot.http(url)
 	      .header('Authorization': auth)
-	      .get() (err, res, body) ->
+	      .get() (err, res, body) -> 
+		      res.send err
 		      if err
 			      res.send "Encountered an error: #{err}"
 			      return
