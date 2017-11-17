@@ -39,4 +39,4 @@ module.exports = (robot) ->
 
 
 	robot.hear /hi/i, (res) ->
-		res.send "Hi #{res.envelope.user.name}, #{res.envelope.user}!"
+		res.send "Hi #{res.envelope.user.name}, #{res.envelope.user.email}!"
