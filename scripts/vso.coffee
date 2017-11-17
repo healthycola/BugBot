@@ -5,10 +5,10 @@ module.exports = (robot) ->
       url = "#{baseUrl}/DefaultCollection/_apis_wit/workitems?api-version=1.0&ids=#{taskItem}"
       auth = 'Basic' + new Buffer(process.env.VSO_USERNAME + ':' + process.env.VSO_PAT).toString('base64')
       robot.http(url)
-	      .header('Authorization': auth)
+	      .header('Authorization', auth)
 	      .get() (err, res, body) -> 
 		      res.reply "#{body}"
-		      if err
-			      res.send "Encountered an error: #{err}"
-		      else
-			      res.send "Successful #{body}"
+		      # if err
+			     #  res.send "Encountered an error: #{err}"
+		      # else
+			     #  res.send "Successful #{body}"
