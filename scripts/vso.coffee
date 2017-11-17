@@ -31,8 +31,12 @@ module.exports = (robot) ->
 	  robot.http(url)
 		  .header('Content-Type', 'application/json-patch+json')
 	      .header('Authorization', auth)
-	      .post(data) (err, httpRes, body) -> 
+	      .patch(data) (err, httpRes, body) -> 
 		      if err
 			      res.send "Encountered an error: #{err}"
 		      else
 			      res.send "Successful #{body}"
+
+
+	robot.hear /hi/i, (res) ->
+		res.send "Hi #{res.envelope.user.name}"
