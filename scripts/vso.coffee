@@ -27,7 +27,7 @@ module.exports = (robot) ->
 	  	value: title
 
 	  workItems = [titleWorkItem]
-	  data = JSON.stringify(workitems)
+	  data = JSON.stringify(workItems)
 	  robot.http(url)
 	      .header('Authorization', auth)
 	      .post(data) (err, httpRes, body) -> 
