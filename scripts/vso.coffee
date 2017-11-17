@@ -6,7 +6,7 @@ module.exports = (robot) ->
       auth = 'Basic' + new Buffer(process.env.VSO_USERNAME + ':' + process.env.VSO_PAT).toString('base64')
       robot.http(url)
 	      .header('Authorization', auth)
-	      .get() (err, res, body) -> 
+	      .get() (err, httpRes, body) -> 
 		      if err
 			      res.send "Encountered an error: #{err}"
 		      else
