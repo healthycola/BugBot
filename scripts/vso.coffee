@@ -14,9 +14,12 @@ module.exports = (robot) ->
 			      res.send "Successful #{body}"
 
 	robot.hear /ios (.*)/i, (res) ->
+		project = "Invoicing-iOS"
+		logBug(res, project)
+
+	logBug = (res, project) ->
 		title = res.match[1]
 		baseUrl = "https://o365smallbizteam.visualstudio.com"
-		project = "Invoicing-iOS"
 		workItemType = "Bug"
 		url = "#{baseUrl}/DefaultCollection/#{project}/_apis/wit/workitems/$#{workItemType}?api-version=1.0"
 		auth = 'Basic' + new Buffer(process.env.VSO_USERNAME + ':' + process.env.VSO_PAT).toString('base64')
@@ -53,7 +56,7 @@ module.exports = (robot) ->
 				if !links
 					res.send "Error"
 					return
-				res.send links["html"]["href"]
+				res.send "Bug logged at #{links["html"]["href"]}"
 			      
 
 	robot.hear /hi (.*)/i, (res) ->
@@ -72,9 +75,7 @@ module.exports = (robot) ->
 			return if matches then matches[0] else null
 
 		getUser = (userName) ->
-			console.log("Checking for #{userName}")
-			for own key, user of robot.brain.data.users
-				return user if user.name == userName
+			return user for own key, user of robot.brain.data.users when user.name is userName
 			return null
 
 		lastWord = getLastWord(res.match[1])
