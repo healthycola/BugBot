@@ -43,7 +43,7 @@ module.exports = (robot) ->
 
 		isUserName = (word) ->
 			return /@([a-zA-Z0-9.,$;]+)/.test(word)
-		res.send "Hi #{res.envelope.user.name}, #{res.envelope.user.profile.email}!"
+		# res.send "Hi #{res.envelope.user.name}, #{res.envelope.user.profile.email}!"
 		lastWord = getLastWord(res.match[1])
 		if isUserName(lastWord)
 			console.log(lastWord)
