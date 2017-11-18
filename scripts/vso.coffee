@@ -47,6 +47,7 @@ module.exports = (robot) ->
 			return null
 
 		getUser = (userName) ->
+			console.log("Checking for #{userName}")
 			for own key, user of robot.brain.data.users
 				return user if user.name == userName
 			return null
