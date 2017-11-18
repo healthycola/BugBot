@@ -32,13 +32,13 @@ module.exports = (robot) ->
 				path: "/fields/System.AssignedTo"
 				value: "#{user.email_address}"
 			title = title.substring(title.begin, title.lastIndexOf(getLastWord(title)))
+			workItems.push(userWorkItem)
 		titleWorkItem =
 			op: "add"
 			path: "/fields/System.Title"
 			value: title
 		workItems.push(titleWorkItem)
 
-		workItems.push(userWorkItem)
 		data = JSON.stringify(workItems)
 		robot.http(url)
 			.header('Content-Type', 'application/json-patch+json')
