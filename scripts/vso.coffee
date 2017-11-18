@@ -15,7 +15,7 @@ module.exports = (robot) ->
 
 	robot.hear /ios: ([@][\S]+){1} (.*)/i, (res) ->
 		project = "Invoicing-iOS"
-		userName = res.match[1].match(/^[@](.*)/)[0]
+		userName = res.match[1].match(/^[@](.*)/)[1]
 		title = res.match[2]
 		logBug(title, userName, project, res)
 
