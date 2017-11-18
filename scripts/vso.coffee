@@ -17,9 +17,9 @@ module.exports = (robot) ->
 		project = "Invoicing-iOS"
 		userName = res.match[1]
 		title = res.match[2]
-		logBug(title, userName, project)
+		logBug(title, userName, project, res)
 
-	logBug = (title, userName, project) ->
+	logBug = (title, userName, project, res) ->
 		baseUrl = "https://o365smallbizteam.visualstudio.com"
 		workItemType = "Bug"
 		url = "#{baseUrl}/DefaultCollection/#{project}/_apis/wit/workitems/$#{workItemType}?api-version=1.0"
