@@ -32,7 +32,6 @@ module.exports = (robot) ->
 				op: "add"
 				path: "/fields/System.AssignedTo"
 				value: "#{user.email_address}"
-			title = title.substring(title.begin, title.lastIndexOf(getLastWord(title)))
 			workItems.push(userWorkItem)
 		titleWorkItem =
 			op: "add"
