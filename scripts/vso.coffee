@@ -47,14 +47,16 @@ module.exports = (robot) ->
 				if err
 					res.send "Encountered an error: #{err}"
 					return
+
 				data = null
 				try
 					data = JSON.parse body
 				catch error
+					res.send "Error! #{error}"
 					return
 				links = data["_links"]
 				if !links
-					res.send "Error"
+					res.send "Error! #{body}"
 					return
 				res.send "Bug logged at #{links["html"]["href"]}"
 			      
