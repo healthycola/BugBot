@@ -42,12 +42,20 @@ module.exports = (robot) ->
 			words = string.split(/[\s,]+/)
 			return words[words.length - 1]
 
-		isUserName = (word) ->
-			return /@([a-zA-Z0-9.,$;]+)/.test(word)
+		getUserName = (word) ->
+			return word.match(/([a-zA-Z0-9.,$;]+)$/) if (/^[@]([a-zA-Z0-9.,$;]+)$/.test(word))
+			return null
+
+		getUser = (userName) ->
+			for own key, user of robot.brain.data.users
+				return user if user.name == userName
+			return null
+
 		res.send "Hi #{res.envelope.user.name}, #{res.envelope.user.profile.email}!"
 		lastWord = getLastWord(res.match[1])
-		if isUserName(lastWord)
-			res.send "#{lastWord}"
+		userName = getUserName(lastWord)
+		user = getUser if userName
+		res.send "#{user.email_address}" if user
 
 	robot.respond /show users$/i, (res) ->
 		response = ""
