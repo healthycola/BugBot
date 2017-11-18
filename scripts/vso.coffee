@@ -36,14 +36,14 @@ module.exports = (robot) ->
 			      res.send "Encountered an error: #{err}"
 		      else
 			      res.send "Successful #{body}"
-	robot.hear /hi/i, (res) ->
+	robot.hear /hi (.*)/i, (res) ->
 		getLastWord = (string) ->
 			words = string.split(/[\s,]+/)
 			return words[words.length - 1]
 
 		isUserName = (word) ->
 			return /@([a-zA-Z0-9.,$;]+)/.test(word)
-		# res.send "Hi #{res.envelope.user.name}, #{res.envelope.user.profile.email}!"
+		res.send "Hi #{res.envelope.user.name}, #{res.envelope.user.profile.email}!"
 		lastWord = getLastWord(res.match[1])
 		if isUserName(lastWord)
 			console.log(lastWord)
