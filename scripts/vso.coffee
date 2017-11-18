@@ -22,11 +22,6 @@ module.exports = (robot) ->
 		auth = 'Basic' + new Buffer(process.env.VSO_USERNAME + ':' + process.env.VSO_PAT).toString('base64')
 		console.log("Posting: #{url}")
 		workItems = []
-		titleWorkItem =
-			op: "add"
-			path: "/fields/System.Title"
-			value: title
-		workItems.push(titleWorkItem)
 		user = getUserFromLastWord(res)
 		if user
 			userWorkItem =
@@ -34,6 +29,11 @@ module.exports = (robot) ->
 				path: "/fields/System.AssignedTo"
 				value: "#{user.email_address}"
 			title = title.substring(title.begin, title.lastIndexOf(getLastWord(title)))
+		titleWorkItem =
+			op: "add"
+			path: "/fields/System.Title"
+			value: title
+		workItems.push(titleWorkItem)
 
 		workItems.push(userWorkItem)
 		data = JSON.stringify(workItems)
