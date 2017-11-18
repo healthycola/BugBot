@@ -33,6 +33,8 @@ module.exports = (robot) ->
 				op: "add"
 				path: "/fields/System.AssignedTo"
 				value: "#{user.email_address}"
+			title = title.substring(title.begin, title.lastIndexOf(getLastWord(title)))
+
 		workItems.push(userWorkItem)
 		data = JSON.stringify(workItems)
 		robot.http(url)
@@ -60,11 +62,11 @@ module.exports = (robot) ->
 		response += "User email is #{user.email_address}" if user
 		res.send response
 
-	getUserFromLastWord = (res) ->
-		getLastWord = (string) ->
+	getLastWord = (string) ->
 			words = string.split(/[\s,]+/)
-			return words[words.length - 1]			
+			return words[words.length - 1]
 
+	getUserFromLastWord = (res) ->	
 		getUserName = (word) ->
 			matches = if (/^[@]([a-zA-Z0-9.,$;]+)$/.test(word)) then word.match(/([a-zA-Z0-9.,$;]+)$/) else null
 			return if matches then matches[0] else null
@@ -77,8 +79,7 @@ module.exports = (robot) ->
 
 		lastWord = getLastWord(res.match[1])
 		userName = getUserName(lastWord)
-		user = getUser(userName) if userName
-
+		return if userName then getUser(userName) else null
 
 	robot.respond /show users$/i, (res) ->
 		response = ""
