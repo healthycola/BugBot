@@ -26,14 +26,14 @@ module.exports = (robot) ->
 			op: "add"
 			path: "/fields/System.Title"
 			value: title
-		workItems.append(titleWorkItem)
+		workItems.push(titleWorkItem)
 		user = getUserFromLastWord(res)
 		if user
 			userWorkItem =
 				op: "add"
 				path: "/fields/System.AssignedTo"
 				value: "#{user.email_address}"
-		workItems.append(userWorkItem)
+		workItems.push(userWorkItem)
 		data = JSON.stringify(workItems)
 		robot.http(url)
 			.header('Content-Type', 'application/json-patch+json')
