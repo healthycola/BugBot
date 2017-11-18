@@ -38,6 +38,12 @@ module.exports = (robot) ->
 			      res.send "Successful #{body}"
 
 	robot.hear /hi (.*)/i, (res) ->
+		response = "Hi #{res.envelope.user.name}, #{res.envelope.user.profile.email}!"
+		user = getUserNameFromLastWord(res)
+		response += "User email is #{user.email_address}" if user
+		res.send response
+
+	getUserNameFromLastWord = (res) ->
 		getLastWord = (string) ->
 			words = string.split(/[\s,]+/)
 			return words[words.length - 1]
@@ -52,12 +58,9 @@ module.exports = (robot) ->
 				return user if user.name == userName
 			return null
 
-		response = "Hi #{res.envelope.user.name}, #{res.envelope.user.profile.email}!"
 		lastWord = getLastWord(res.match[1])
 		userName = getUserName(lastWord)
-		user = getUser(userName) if userName
-		response += "User Id is #{user.id}" if user
-		res.send response
+		return if userName then getUser(userName) else null
 
 	robot.respond /show users$/i, (res) ->
 		response = ""
