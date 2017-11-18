@@ -38,11 +38,21 @@ module.exports = (robot) ->
 		robot.http(url)
 			.header('Content-Type', 'application/json-patch+json')
 			.header('Authorization', auth)
-			.patch(data) (err, httpRes, body) -> 
-			  if err
-			      res.send "Encountered an error: #{err}"
-			  else
-			      res.send "Successful #{body}"
+			.patch(data) (err, httpRes, body) ->
+				if err
+					res.send "Encountered an error: #{err}"
+					return
+				data = null
+				try
+					data = JSON.parse body
+				catch error
+					return
+				links = data["_links"]
+				if !links
+					res.send "Error"
+					return
+				res.send links["html"]["href"]
+			      
 
 	robot.hear /hi (.*)/i, (res) ->
 		response = "Hi #{res.envelope.user.name}, #{res.envelope.user.profile.email}!"
@@ -53,7 +63,7 @@ module.exports = (robot) ->
 	getUserFromLastWord = (res) ->
 		getLastWord = (string) ->
 			words = string.split(/[\s,]+/)
-			return words[words.length - 1]
+			return words[words.length - 1]			
 
 		getUserName = (word) ->
 			matches = if (/^[@]([a-zA-Z0-9.,$;]+)$/.test(word)) then word.match(/([a-zA-Z0-9.,$;]+)$/) else null
@@ -67,7 +77,8 @@ module.exports = (robot) ->
 
 		lastWord = getLastWord(res.match[1])
 		userName = getUserName(lastWord)
-		return if userName then getUser(userName) else null
+		user = getUser(userName) if userName
+
 
 	robot.respond /show users$/i, (res) ->
 		response = ""
