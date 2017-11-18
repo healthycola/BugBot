@@ -36,6 +36,7 @@ module.exports = (robot) ->
 			      res.send "Encountered an error: #{err}"
 		      else
 			      res.send "Successful #{body}"
+
 	robot.hear /hi (.*)/i, (res) ->
 		getLastWord = (string) ->
 			words = string.split(/[\s,]+/)
@@ -46,5 +47,13 @@ module.exports = (robot) ->
 		res.send "Hi #{res.envelope.user.name}, #{res.envelope.user.profile.email}!"
 		lastWord = getLastWord(res.match[1])
 		if isUserName(lastWord)
-			console.log(lastWord)
 			res.send "#{lastWord}"
+
+	robot.respond /show users$/i, (res) ->
+		response = ""
+
+		for own key, user of robot.brain.data.users
+		  response += "#{user.id} #{user.name}"
+		  response += " <#{user.email_address}>" if user.email_address
+		  response += "\n"
+		res.send response
