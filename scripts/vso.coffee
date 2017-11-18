@@ -65,6 +65,10 @@ module.exports = (robot) ->
 		response += "User email is #{user.email_address}" if user
 		res.send response
 
+	robot.hear /^test: ([@][\S]+)? (.*)$/i, (res) ->
+		res.send "User #{res.match[1]}"
+		res.send "Title #{res.match[2]}"
+
 	getLastWord = (string) ->
 			words = string.split(/[\s,]+/)
 			return words[words.length - 1]
