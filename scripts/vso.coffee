@@ -13,7 +13,7 @@ module.exports = (robot) ->
 		      else
 			      res.send "Successful #{body}"
 
-	robot.hear /ios (.*)/i, (res) ->
+robot.hear /ios (.*)/i, (res) ->
 	  title = res.match[1]
 	  baseUrl = "https://o365smallbizteam.visualstudio.com"
 	  project = "Invoicing-iOS"
