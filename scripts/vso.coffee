@@ -51,11 +51,12 @@ module.exports = (robot) ->
 				return user if user.name == userName
 			return null
 
-		res.send "Hi #{res.envelope.user.name}, #{res.envelope.user.profile.email}!"
+		response = "Hi #{res.envelope.user.name}, #{res.envelope.user.profile.email}!"
 		lastWord = getLastWord(res.match[1])
 		userName = getUserName(lastWord)
-		user = getUser if userName
-		res.send "#{user.id}" if user
+		user = getUser(userName) if userName
+		response += "User Id is #{user.id}" if user
+
 
 	robot.respond /show users$/i, (res) ->
 		response = ""
