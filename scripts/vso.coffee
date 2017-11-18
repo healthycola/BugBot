@@ -43,8 +43,8 @@ module.exports = (robot) ->
 			return words[words.length - 1]
 
 		getUserName = (word) ->
-			return word.match(/([a-zA-Z0-9.,$;]+)$/) if (/^[@]([a-zA-Z0-9.,$;]+)$/.test(word))
-			return null
+			matches = if (/^[@]([a-zA-Z0-9.,$;]+)$/.test(word)) then word.match(/([a-zA-Z0-9.,$;]+)$/) else null
+			return if matches then matches[0] else null
 
 		getUser = (userName) ->
 			console.log("Checking for #{userName}")
