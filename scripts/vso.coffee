@@ -55,7 +55,7 @@ module.exports = (robot) ->
 		lastWord = getLastWord(res.match[1])
 		userName = getUserName(lastWord)
 		user = getUser if userName
-		res.send "#{user.email_address}" if user
+		res.send "#{user.id}" if user
 
 	robot.respond /show users$/i, (res) ->
 		response = ""
