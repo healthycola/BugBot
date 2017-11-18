@@ -56,7 +56,7 @@ module.exports = (robot) ->
 		userName = getUserName(lastWord)
 		user = getUser(userName) if userName
 		response += "User Id is #{user.id}" if user
-
+		res.send response
 
 	robot.respond /show users$/i, (res) ->
 		response = ""
