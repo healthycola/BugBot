@@ -13,19 +13,20 @@ module.exports = (robot) ->
 		      else
 			      res.send "Successful #{body}"
 
-	robot.hear /ios (.*)/i, (res) ->
+	robot.hear /ios: ([@][\S]+){1} (.*)/i, (res) ->
 		project = "Invoicing-iOS"
-		logBug(res, project)
+		userName = res.match[1]
+		title = res.match[2]
+		logBug(title, userName, project)
 
-	logBug = (res, project) ->
-		title = res.match[1]
+	logBug = (title, userName, project) ->
 		baseUrl = "https://o365smallbizteam.visualstudio.com"
 		workItemType = "Bug"
 		url = "#{baseUrl}/DefaultCollection/#{project}/_apis/wit/workitems/$#{workItemType}?api-version=1.0"
 		auth = 'Basic' + new Buffer(process.env.VSO_USERNAME + ':' + process.env.VSO_PAT).toString('base64')
 		console.log("Posting: #{url}")
 		workItems = []
-		user = getUserFromLastWord(res)
+		user = getUser(userName)
 		if user
 			userWorkItem =
 				op: "add"
@@ -73,14 +74,16 @@ module.exports = (robot) ->
 			words = string.split(/[\s,]+/)
 			return words[words.length - 1]
 
+	getUser = (userName) ->
+			return user for own key, user of robot.brain.data.users when user.name is userName
+			return null
+
 	getUserFromLastWord = (res) ->	
 		getUserName = (word) ->
 			matches = if (/^[@]([a-zA-Z0-9.,$;]+)$/.test(word)) then word.match(/([a-zA-Z0-9.,$;]+)$/) else null
 			return if matches then matches[0] else null
 
-		getUser = (userName) ->
-			return user for own key, user of robot.brain.data.users when user.name is userName
-			return null
+		
 
 		lastWord = getLastWord(res.match[1])
 		userName = getUserName(lastWord)
