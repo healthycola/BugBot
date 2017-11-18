@@ -34,9 +34,9 @@ module.exports = (robot) ->
 			path: "/fields/System.Title"
 			value: title
 		workItems.push(titleWorkItem)
-		postBug(workItems, res)
+		postBug(workItems, project, res)
 
-	postBug = (workItems, res) ->
+	postBug = (workItems, project, res) ->
 		#setup
 		baseUrl = "https://o365smallbizteam.visualstudio.com"
 		workItemType = "Bug"
