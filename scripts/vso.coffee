@@ -20,6 +20,19 @@ module.exports = (robot) ->
 		description = if res.match.length > 3 && res.match[3] != undefined then res.match[3] else null
 		logBug(title, userName, description, project, res)
 
+
+	sendMessage = (results) ->
+		res =
+			fallback: "New ticket from Andrea Lee - Ticket #1943: Can't rest my password - https://groove.hq/path/to/ticket/1943",
+			pretext: "New ticket from Andrea Lee",
+			title: "Ticket #1943: Can't reset my password",
+			title_link: "https://groove.hq/path/to/ticket/1943",
+			text: "Help! I tried to reset my password but nothing happened!",
+			color: "#7CD197"
+
+		robot.emit 'slack-attachment',
+			content: res
+
 	logBug = (title, userName, description, project, res) ->
 		## Begin generating workitem object
 		workItems = []
@@ -85,8 +98,8 @@ module.exports = (robot) ->
 	# 	res.send response
 
 	robot.hear /test: ([@][\S]+){1} ([^\[]+?)(?=\[|$)(?:\[(.*?)\])?/i, (res) ->
-		res.send "#{res.match[1]} #{res.match[2]} #{res.match[3]}"
-		res.send "UNDEFINED" if res.match[3] is undefined
+		# res.send "#{res.match[1]} #{res.match[2]} #{res.match[3]}"
+		sendMessage(null)
 
 	getUser = (userName) ->
 			return user for own key, user of robot.brain.data.users when user.name is userName
