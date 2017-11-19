@@ -20,7 +20,7 @@ module.exports = (robot) ->
 		description = if res.match.length > 3 then res.match[3] else null
 		logBug(title, userName, description, project, res)
 
-	logBug = (title, userName, project, res) ->
+	logBug = (title, userName, description, project, res) ->
 		## Begin generating workitem object
 		workItems = []
 		user = getUser(userName)
