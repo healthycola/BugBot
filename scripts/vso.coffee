@@ -36,10 +36,11 @@ module.exports = (robot) ->
 			value: res.envelope.user.profile.email
 		workItems.push(loggedByWorkItem)
 		if description
-			description =
+			descriptionWorkItem =
 				op: "add"
 				patch: "/fields/System.Description"
 				value: description
+			workItems.push(descriptionWorkItem)
 		titleWorkItem =
 			op: "add"
 			path: "/fields/System.Title"
