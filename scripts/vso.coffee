@@ -101,7 +101,7 @@ module.exports = (robot) ->
 
 	robot.hear /test: (.*)/i, (res) ->
 		res.send "Testing"
-		sendMessage(null)
+		sendMessage(null, res)
 
 	getUser = (userName) ->
 			return user for own key, user of robot.brain.data.users when user.name is userName
