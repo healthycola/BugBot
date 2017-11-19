@@ -30,10 +30,10 @@ module.exports = (robot) ->
 			text: "Help! I tried to reset my password but nothing happened!",
 			color: "#7CD197"
 
-		robot.emit 'slack-attachment',
-			content: res
-			message:
-				room: msg.message.room
+		robot.emit 'slack.attachment',
+			message: msg.message
+			text: "Attachment text"
+			fallback: "Attachment fallback"
 
 	logBug = (title, userName, description, project, res) ->
 		## Begin generating workitem object
