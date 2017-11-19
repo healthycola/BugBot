@@ -13,11 +13,12 @@ module.exports = (robot) ->
 				else
 					res.send "Successful #{body}"
 
-	robot.hear /ios: ([@][\S]+){1} (.*)/i, (res) ->
+	robot.hear /ios: ([@][\S]+){1} ([^\[]+?)(?:\[(.+)+\])?/i, (res) ->
 		project = "Invoicing-iOS"
 		userName = res.match[1].match(/^[@](.*)/)[1]
 		title = res.match[2]
-		logBug(title, userName, project, res)
+		description = if res.match.length > 3 then res.match[3] else null
+		logBug(title, userName, description, project, res)
 
 	logBug = (title, userName, project, res) ->
 		## Begin generating workitem object
@@ -34,6 +35,11 @@ module.exports = (robot) ->
 			path: "/fields/System.CreatedBy"
 			value: res.envelope.user.profile.email
 		workItems.push(loggedByWorkItem)
+		if description
+			description =
+				op: "add"
+				patch: "/fields/System.Description"
+				value: description
 		titleWorkItem =
 			op: "add"
 			path: "/fields/System.Title"
