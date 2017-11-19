@@ -31,7 +31,7 @@ module.exports = (robot) ->
 			color: "#7CD197"
 
 		robot.emit 'slack.attachment',
-			message: msg.message
+			message: msg
 			text: "Attachment text"
 			fallback: "Attachment fallback"
 
@@ -78,7 +78,7 @@ module.exports = (robot) ->
 			.patch(data) (err, httpRes, body) ->
 				if err
 					res.send "Encountered an error: #{err}"
-					return
+				return unless !err
 
 				data = null
 				try
@@ -89,7 +89,7 @@ module.exports = (robot) ->
 				links = data["_links"]
 				if !links
 					res.send "Error! #{body}"
-					return
+				return unless links
 				res.send "Bug logged at #{links["html"]["href"]}"
 			      
 
