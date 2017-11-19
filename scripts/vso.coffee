@@ -33,7 +33,7 @@ module.exports = (robot) ->
 			op: "add"
 			path: "/fields/System.CreatedBy"
 			value: res.envelope.user.profile.email
-		workitems.push(loggedByWorkItem)
+		workItems.push(loggedByWorkItem)
 		titleWorkItem =
 			op: "add"
 			path: "/fields/System.Title"
