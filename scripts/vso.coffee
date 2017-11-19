@@ -38,7 +38,7 @@ module.exports = (robot) ->
 		if description
 			descriptionWorkItem =
 				op: "add"
-				patch: "/fields/System.Description"
+				path: "/fields/System.Description"
 				value: description
 			workItems.push(descriptionWorkItem)
 		titleWorkItem =
