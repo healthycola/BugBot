@@ -29,11 +29,9 @@ module.exports = (robot) ->
 			title_link: "https://groove.hq/path/to/ticket/1943",
 			text: "Help! I tried to reset my password but nothing happened!",
 			color: "#7CD197"
-
-		robot.emit 'slack.attachment',
 			message: msg
-			text: "Attachment text"
-			fallback: "Attachment fallback"
+
+		robot.emit 'slack.attachment', res
 
 	logBug = (title, userName, description, project, res) ->
 		## Begin generating workitem object
