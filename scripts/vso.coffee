@@ -29,7 +29,7 @@ module.exports = (robot) ->
 			title_link: "https://groove.hq/path/to/ticket/1943",
 			text: "Help! I tried to reset my password but nothing happened!",
 			color: "#7CD197"
-			channel: "#bugs"
+			channel: "bugs"
 
 		robot.emit 'slack.attachment', res
 
