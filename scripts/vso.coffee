@@ -21,7 +21,7 @@ module.exports = (robot) ->
 		logBug(title, userName, description, project, res)
 
 
-	sendMessage = (results) ->
+	sendMessage = (results, msg) ->
 		res =
 			fallback: "New ticket from Andrea Lee - Ticket #1943: Can't rest my password - https://groove.hq/path/to/ticket/1943",
 			pretext: "New ticket from Andrea Lee",
@@ -32,6 +32,8 @@ module.exports = (robot) ->
 
 		robot.emit 'slack-attachment',
 			content: res
+			message:
+				room: msg.message.room
 
 	logBug = (title, userName, description, project, res) ->
 		## Begin generating workitem object
