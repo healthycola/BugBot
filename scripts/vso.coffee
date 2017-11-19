@@ -38,7 +38,7 @@ module.exports = (robot) ->
 		if description
 			descriptionWorkItem =
 				op: "add"
-				path: "/fields/System.Description"
+				path: "/fields/Microsoft.VSTS.TCM.ReproSteps"
 				value: description
 			workItems.push(descriptionWorkItem)
 		titleWorkItem =
