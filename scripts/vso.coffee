@@ -84,7 +84,7 @@ module.exports = (robot) ->
 	# 	response += "User email is #{user.email_address}" if user
 	# 	res.send response
 
-	robot.hear /test: ([@][\S]+){1} ([^\[]+?)(?: \[(.+)+\])?/i, (res) ->
+	robot.hear /test: ([@][\S]+){1} ([^\[]+?){1}(?: \[(.+)+\])?/i, (res) ->
 		res.send res.match[1]
 		res.send res.match[2]
 		res.send res.match[3]
