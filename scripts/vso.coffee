@@ -29,6 +29,11 @@ module.exports = (robot) ->
 				path: "/fields/System.AssignedTo"
 				value: "#{user.email_address}"
 			workItems.push(userWorkItem)
+		loggedByWorkItem =
+			op: "add"
+			path: "/fields/System.CreatedBy"
+			value: res.envelope.user.profile.email
+		workitems.push(loggedByWorkItem)
 		titleWorkItem =
 			op: "add"
 			path: "/fields/System.Title"
