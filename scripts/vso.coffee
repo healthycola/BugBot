@@ -84,9 +84,10 @@ module.exports = (robot) ->
 	# 	response += "User email is #{user.email_address}" if user
 	# 	res.send response
 
-	# robot.hear /test: ([@][\S]+){1} (.*)/i, (res) ->
-	# 	res.send "User #{res.match[1]}"
-	# 	res.send "Title #{res.match[2]}"
+	robot.hear /test: ([@][\S]+){1} ([^\[]+?)(?: \[(.+)+\])?/i, (res) ->
+		res.send res.match[1]
+		res.send res.match[2]
+		res.send res.match[3]
 
 	getUser = (userName) ->
 			return user for own key, user of robot.brain.data.users when user.name is userName
