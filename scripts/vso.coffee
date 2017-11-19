@@ -29,12 +29,11 @@ module.exports = (robot) ->
 			title_link: "https://groove.hq/path/to/ticket/1943",
 			text: "Help! I tried to reset my password but nothing happened!",
 			color: "#7CD197"
-			channel: "bugs"
 
 		robot.adapter.client.web.chat.postMessage(
 			msg.message.room, 
 			"This is a message!",
-			"attachments": [{fallback: "Required plain-text summary of the attachment.", color: "#36a64f", pretext: "Optional text that appears above the attachment block", title: "Slack API Documentation", title_link: "https://api.slack.com/"}]
+			"attachments": [res]
 	            # "author_name": "Bobby Tables",
 	            # "author_link": "http://flickr.com/bobby/",
 	            # "author_icon": "http://flickr.com/icons/bobby.jpg",
