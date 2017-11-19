@@ -86,7 +86,7 @@ module.exports = (robot) ->
 
 	robot.hear /test: ([@][\S]+){1} ([^\[]+?)(?=\[|$)(?:\[(.*?)\])?/i, (res) ->
 		res.send "#{res.match[1]} #{res.match[2]} #{res.match[3]}"
-		res.send if res.match[3] is undefined
+		res.send "UNDEFINED" if res.match[3] is undefined
 
 	getUser = (userName) ->
 			return user for own key, user of robot.brain.data.users when user.name is userName
