@@ -93,7 +93,7 @@ module.exports = (robot) ->
 		assignedTo = vsoResponse["fields"]["System.AssignedTo"]
 		id = vsoResponse["id"]
 		res =
-			as_user: true
+			as_user: true,
 			fallback: "Bug link #{link}",
 			title: "Bug #{id} assigned to #{assignedTo}",
 			title_link: link,
