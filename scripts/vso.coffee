@@ -31,7 +31,7 @@ module.exports = (robot) ->
 			color: "#7CD197"
 			channel: "bugs"
 
-		robot.adapter.client.web.chat.postMessage(message.message.room, "This is a message!")
+		robot.adapter.client.web.chat.postMessage(msg.message.room, "This is a message!")
 
 	logBug = (title, userName, description, project, res) ->
 		## Begin generating workitem object
