@@ -13,11 +13,11 @@ module.exports = (robot) ->
 				else
 					res.send "Successful #{body}"
 
-	robot.hear /ios: ([@][\S]+){1} ([^\[]+?)(?:\[(.+)+\])?/i, (res) ->
+	robot.hear /ios: ([@][\S]+){1} ([^\[]+?)(?=\[|$)(?:\[(.*?)\])?/i, (res) ->
 		project = "Invoicing-iOS"
 		userName = res.match[1].match(/^[@](.*)/)[1]
 		title = res.match[2]
-		description = if res.match.length > 3 then res.match[3] else null
+		description = if res.match.length > 3 && res.match[3] != undefined then res.match[3] else null
 		logBug(title, userName, description, project, res)
 
 	logBug = (title, userName, description, project, res) ->
