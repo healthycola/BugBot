@@ -94,7 +94,6 @@ module.exports = (robot) ->
 		id = vsoResponse["id"]
 		res =
 			fallback: "Bug link #{link}",
-			pretext: "New bug assigned",
 			title: "Bug #{id} assigned to #{assignedTo}",
 			title_link: link,
 			text: title,
