@@ -21,37 +21,11 @@ module.exports = (robot) ->
 		logBug(title, userName, description, project, res)
 
 
-	sendMessage = (results, msg) ->
-		res =
-			fallback: "New ticket from Andrea Lee - Ticket #1943: Can't rest my password - https://groove.hq/path/to/ticket/1943",
-			pretext: "New ticket from Andrea Lee",
-			title: "Ticket #1943: Can't reset my password",
-			title_link: "https://groove.hq/path/to/ticket/1943",
-			text: "Help! I tried to reset my password but nothing happened!",
-			color: "#7CD197"
-
+	sendMessage = (results, res) ->
 		robot.adapter.client.web.chat.postMessage(
-			msg.message.room, 
-			"This is a message!",
-			"attachments": [res]
-	            # "author_name": "Bobby Tables",
-	            # "author_link": "http://flickr.com/bobby/",
-	            # "author_icon": "http://flickr.com/icons/bobby.jpg",
-	            # "title": "Slack API Documentation",
-	            # "title_link": "https://api.slack.com/",
-	            # "text": "Optional text that appears within the attachment",
-	            # "fields": [
-	            #     {
-	            #         "title": "Priority",
-	            #         "value": "High",
-	            #         "short": false
-	            #     }
-	            # ],
-	            # "image_url": "http://my-website.com/path/to/image.jpg",
-	            # "thumb_url": "http://example.com/path/to/thumb.png",
-	            # "footer": "Slack API",
-	            # "footer_icon": "https://platform.slack-edge.com/img/default_application_icon.png",
-	            # "ts": 123456789
+			res.message.room, 
+			"Bug created",
+			"attachments": [results]
 			)
 
 	logBug = (title, userName, description, project, res) ->
@@ -109,8 +83,22 @@ module.exports = (robot) ->
 				if !links
 					res.send "Error! #{body}"
 				return unless links
-				res.send "Bug logged at #{links["html"]["href"]}"
-			      
+				response = createSlackResponse(data)
+				sendMessage(response, res)
+
+	
+	createSlackResponse = (vsoResponse) ->
+		link = vsoResponse["_links"]["html"]["href"]
+		title = vsoResponse["fields"]["System.Title"]
+		assignedTo = vsoResponse["fields"]["System.AssignedTo"]
+		id = vsoResponse["id"]
+		res =
+			fallback: "Bug link #{link}",
+			pretext: "New bug assigned",
+			title: "Bug #{id} assigned to #{assignedTo}",
+			title_link: link,
+			text: title,
+			color: "#ba4444"
 
 	# robot.hear /hi (.*)/i, (res) ->
 	# 	response = "Hi #{res.envelope.user.name}, #{res.envelope.user.profile.email}!"
