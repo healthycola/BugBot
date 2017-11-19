@@ -31,15 +31,7 @@ module.exports = (robot) ->
 			color: "#7CD197"
 			channel: "bugs"
 
-		robot.emit 'slack.attachment', {
-			fallback: "New ticket from Andrea Lee - Ticket #1943: Can't rest my password - https://groove.hq/path/to/ticket/1943",
-			pretext: "New ticket from Andrea Lee",
-			title: "Ticket #1943: Can't reset my password",
-			title_link: "https://groove.hq/path/to/ticket/1943",
-			text: "Help! I tried to reset my password but nothing happened!",
-			color: "#7CD197"
-			channel: "bugs"
-		}
+		robot.adapter.client.web.chat.postMessage(message.message.room, "This is a message!")
 
 	logBug = (title, userName, description, project, res) ->
 		## Begin generating workitem object
